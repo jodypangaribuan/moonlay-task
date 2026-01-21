@@ -1,26 +1,116 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-background: #FFFDF5;
+  --color-foreground: #1E293B;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-muted: #F1F5F9;
+  --color-muted-foreground: #64748B;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-accent: #8B5CF6;
+  --color-accent-foreground: #FFFFFF;
+
+  --color-secondary: #F472B6;
+  --color-tertiary: #FBBF24;
+  --color-quaternary: #34D399;
+
+  --color-border: #E2E8F0;
+  --color-input: #FFFFFF;
+  --color-card: #FFFFFF;
+  --color-ring: #8B5CF6;
+
+  --font-heading: var(--font-outfit);
+  --font-body: var(--font-jakarta);
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  --shadow-pop: 4px 4px 0px 0px #1E293B;
+  --shadow-pop-hover: 6px 6px 0px 0px #1E293B;
+  --shadow-pop-active: 2px 2px 0px 0px #1E293B;
+
+  --animate-wiggle: wiggle 0.3s ease-in-out infinite;
+
+  @keyframes wiggle {
+
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+
+    25% {
+      transform: rotate(3deg);
+    }
+
+    75% {
+      transform: rotate(-3deg);
+    }
   }
+}
+
+:root {
+  --background: #FFFDF5;
+  --foreground: #1E293B;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-outfit);
+  font-weight: 700;
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(#1E293B 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.1;
+}
+
+@utility shadow-pop {
+  box-shadow: 4px 4px 0px 0px #1E293B;
+}
+
+@utility shadow-pop-hover {
+  box-shadow: 6px 6px 0px 0px #1E293B;
+}
+
+@utility shadow-pop-active {
+  box-shadow: 2px 2px 0px 0px #1E293B;
+}
+
+@utility transition-bounce {
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bubble-anim {
+  animation: bubble 10s ease-in-out infinite;
+}
+
+@keyframes bubble {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+
+  33% {
+    transform: translateY(-20px) scale(1.1) rotate(5deg);
+  }
+
+  66% {
+    transform: translateY(10px) scale(0.9) rotate(-5deg);
+  }
 }

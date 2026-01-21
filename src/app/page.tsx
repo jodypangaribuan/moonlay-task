@@ -1,153 +1,144 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge, FloatingShape } from "@/components/ui/decorative";
-import { Input } from "@/components/ui/input";
-import { ArrowRight, Check, Zap, Star, Layout, Palette } from "lucide-react";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import { LoginForm } from "@/components/auth/login-form";
+import { TaskBoard } from "@/components/dashboard/task-board";
+import { TaskForm } from "@/components/dashboard/task-form";
+import { AIChatbot } from "@/components/dashboard/ai-chatbot";
+import { Modal } from "@/components/ui/modal";
+import { FloatingShape } from "@/components/ui/decorative";
+import { Task, TaskStatus, MOCK_TASKS } from "@/lib/types";
+import { Button } from "@/components/ui/button";
+import { Zap, Plus, LogOut } from "lucide-react";
+
+export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [tasks, setTasks] = useState<Task[]>(MOCK_TASKS);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
+  const [defaultStatus, setDefaultStatus] = useState<TaskStatus>("todo");
+
+  const handleLogin = (username: string) => {
+    setCurrentUser(username);
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+  };
+
+  const handleAddTask = (status: TaskStatus) => {
+    setEditingTask(undefined);
+    setDefaultStatus(status);
+    setIsModalOpen(true);
+  };
+
+  const handleEditTask = (task: Task) => {
+    setEditingTask(task);
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteTask = (id: string) => {
+    setTasks(tasks.filter(t => t.id !== id));
+  };
+
+  const handleFormSubmit = (formData: Partial<Task>) => {
+    if (editingTask) {
+      setTasks(tasks.map(t => t.id === editingTask.id ? { ...t, ...formData } as Task : t));
+    } else {
+      const newTask: Task = {
+        id: Math.random().toString(36).substring(7),
+        ...formData,
+      } as Task;
+      setTasks([...tasks, newTask]);
+    }
+    setIsModalOpen(false);
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="relative min-h-screen overflow-hidden bg-background flex items-center justify-center p-6">
+        <div className="fixed inset-0 dot-grid pointer-events-none" />
+        <FloatingShape type="circle" size="xl" color="tertiary" className="top-[-10%] left-[-5%]" />
+        <FloatingShape type="pill" size="lg" color="secondary" className="bottom-[10%] right-[10%] rotate-45" />
+
+        <LoginForm onLogin={handleLogin} />
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background selection:bg-tertiary">
-      {/* Decorative Background Elements */}
-      <div className="fixed inset-0 -z-10 dot-grid pointer-events-none" />
-      <FloatingShape type="circle" size="xl" color="tertiary" className="top-[-10%] left-[-5%]" />
-      <FloatingShape type="pill" size="lg" color="secondary" className="bottom-[10%] right-[-5%] rotate-45" />
-      <FloatingShape type="square" size="md" color="accent" className="top-[20%] right-[10%] rotate-12" />
-      <FloatingShape type="circle" size="sm" color="quaternary" className="bottom-[30%] left-[15%]" />
+      <div className="fixed inset-0 dot-grid pointer-events-none" />
 
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 w-full border-b-2 border-foreground bg-background/80 backdrop-blur-md">
+      {/* App Header */}
+      <nav className="sticky top-0 z-40 w-full border-b-2 border-foreground bg-white/80 backdrop-blur-md">
         <div className="container mx-auto flex h-20 items-center justify-between px-6">
           <div className="flex items-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-foreground bg-accent shadow-pop">
               <Zap className="text-white" size={24} />
             </div>
-            <span className="text-2xl font-extrabold tracking-tight font-heading">GEOPOP</span>
+            <span className="text-2xl font-black font-heading tracking-tight italic">GEOTASK</span>
           </div>
-          <div className="hidden md:flex items-center gap-8 font-bold">
-            <a href="#" className="hover:text-accent transition-colors">Features</a>
-            <a href="#" className="hover:text-accent transition-colors">Pricing</a>
-            <a href="#" className="hover:text-accent transition-colors">About</a>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm">Log In</Button>
-            <Button size="sm">Get Started</Button>
+
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex flex-col items-end">
+              <span className="text-sm font-black uppercase text-accent leading-none mb-1">Assignee</span>
+              <span className="font-bold leading-none">@{currentUser}</span>
+            </div>
+            <div className="h-12 w-12 rounded-full border-2 border-foreground bg-tertiary flex items-center justify-center font-black">
+              JD
+            </div>
+            <Button variant="outline" size="sm" onClick={handleLogout} className="!p-2 h-10 w-10">
+              <LogOut size={18} />
+            </Button>
           </div>
         </div>
       </nav>
 
-      <main>
-        {/* Hero Section */}
-        <section className="container mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center relative">
-          <Badge variant="tertiary" className="mb-6 animate-bounce">
-            NEW: Playful Components Now Live! ✨
-          </Badge>
-          <h1 className="text-6xl md:text-8xl font-black font-heading tracking-tighter text-foreground mb-8 max-w-4xl">
-            Design that <span className="text-accent underline decoration-8 decoration-secondary underline-offset-8">Pops</span> and Feels Alive.
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-2xl mb-12">
-            The Playful Geometric design system for modern teams who want to stand out from the gray crowd. Tactile, energetic, and fun.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6">
-            <Button size="lg" className="h-16 px-10 text-xl">
-              Start Building <ArrowRight className="ml-2" />
-            </Button>
-            <Button variant="outline" size="lg" className="h-16 px-10 text-xl">
-              View Showcase
-            </Button>
+      <main className="container mx-auto px-6 py-12">
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <h1 className="text-5xl font-black font-heading tracking-tighter mb-4">
+              My Task Board
+            </h1>
+            <p className="text-lg font-bold text-muted-foreground">
+              You have <span className="text-accent underline decoration-2">{tasks.filter(t => t.status !== 'done').length} tasks pending</span> for today. Keep going!
+            </p>
           </div>
-        </section>
+          <Button size="lg" onClick={() => handleAddTask('todo')} className="h-16 px-8 text-lg">
+            <Plus className="mr-2" /> New Task
+          </Button>
+        </header>
 
-        {/* Features Section */}
-        <section className="container mx-auto px-6 py-24">
-          <div className="flex flex-col items-center text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black font-heading mb-4">Why GeoPop?</h2>
-            <p className="text-lg text-muted-foreground font-medium">Built for the next generation of web apps.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <Card featured>
-              <div className="h-14 w-14 rounded-full bg-secondary border-2 border-foreground flex items-center justify-center mb-6">
-                <Palette className="text-white" size={28} />
-              </div>
-              <CardTitle className="mb-4">Vibrant Colors</CardTitle>
-              <CardDescription className="text-base text-foreground/80">
-                A carefully curated palette that balances high-energy pops with readable neutrals.
-              </CardDescription>
-            </Card>
-
-            <Card>
-              <div className="h-14 w-14 rounded-full bg-accent border-2 border-foreground flex items-center justify-center mb-6">
-                <Layout className="text-white" size={28} />
-              </div>
-              <CardTitle className="mb-4">Stable Grid</CardTitle>
-              <CardDescription className="text-base text-foreground/80">
-                Clean layout primitives that keep your content organized while the world around it plays.
-              </CardDescription>
-            </Card>
-
-            <Card>
-              <div className="h-14 w-14 rounded-full bg-quaternary border-2 border-foreground flex items-center justify-center mb-6">
-                <Zap className="text-white" size={28} />
-              </div>
-              <CardTitle className="mb-4">Popping Motion</CardTitle>
-              <CardDescription className="text-base text-foreground/80">
-                Overshooting springs and bouncy interactions that make every click feel satisfying.
-              </CardDescription>
-            </Card>
-          </div>
-        </section>
-
-        {/* Newsletter / CTA Section */}
-        <section className="container mx-auto px-6 py-24">
-          <div className="bg-tertiary border-4 border-foreground rounded-[2rem] p-12 md:p-20 relative overflow-hidden shadow-pop">
-            <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl md:text-5xl font-black font-heading mb-6">Ready to break the rules?</h2>
-                <p className="text-xl font-bold mb-8 opacity-90">
-                  Join 5,000+ designers and developers building more playful interfaces.
-                </p>
-                <ul className="space-y-4 font-bold">
-                  <li className="flex items-center gap-3">
-                    <div className="bg-white border-2 border-foreground rounded-full p-1"><Check size={16} /></div>
-                    Weekly layout inspiration
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="bg-white border-2 border-foreground rounded-full p-1"><Check size={16} /></div>
-                    Free geometry asset packs
-                  </li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-4">
-                <div className="bg-white p-8 border-4 border-foreground rounded-2xl shadow-pop">
-                  <Input label="Your Email" placeholder="hello@example.com" className="mb-4" />
-                  <Button className="w-full h-14 text-lg">Subscribe Now</Button>
-                </div>
-              </div>
-            </div>
-            {/* Decoration within CTA */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/20 rounded-full blur-3xl -mr-32 -mt-32" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/20 rounded-full blur-3xl -ml-24 -mb-24" />
-          </div>
-        </section>
+        <TaskBoard
+          tasks={tasks}
+          onAddTask={handleAddTask}
+          onEditTask={handleEditTask}
+          onDeleteTask={handleDeleteTask}
+        />
       </main>
 
-      {/* Footer */}
-      <footer className="border-t-2 border-foreground py-12 bg-white">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-2">
-            <Zap className="text-accent" size={24} />
-            <span className="text-xl font-black font-heading">GEOPOP</span>
-          </div>
-          <p className="text-muted-foreground font-medium">
-            © 2026 GeoPop Design. Keep it playful.
-          </p>
-          <div className="flex gap-6">
-            {['Twitter', 'GitHub', 'Discord'].map(social => (
-              <a key={social} href="#" className="font-bold hover:text-secondary transition-colors">{social}</a>
-            ))}
-          </div>
-        </div>
-      </footer>
+      <AIChatbot />
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={editingTask ? "Edit Task" : "Create New Task"}
+      >
+        <TaskForm
+          task={editingTask}
+          defaultStatus={defaultStatus}
+          onSubmit={handleFormSubmit}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      </Modal>
+
+      {/* Background Shapes */}
+      <FloatingShape type="circle" size="md" color="secondary" className="top-1/4 right-[-5%] opacity-10" />
+      <FloatingShape type="square" size="sm" color="quaternary" className="bottom-1/4 left-[-2%] rotate-12 opacity-10" />
     </div>
   );
 }

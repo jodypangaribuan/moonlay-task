@@ -54,7 +54,7 @@ export function AIChatbot() {
                         exit={{ opacity: 0, scale: 0.8, y: 50, x: 20 }}
                         className="fixed bottom-28 right-8 z-50 w-[400px] max-w-[calc(100vw-2rem)]"
                     >
-                        <Card className="h-[500px] flex flex-col overflow-hidden border-4 shadow-pop">
+                        <Card hoverEffect={false} className="h-[500px] flex flex-col overflow-hidden border-4 shadow-pop">
                             <div className="bg-accent p-4 text-white flex items-center justify-between border-b-2 border-foreground">
                                 <div className="flex items-center gap-2">
                                     <div className="h-8 w-8 bg-white rounded-full flex items-center justify-center text-accent">

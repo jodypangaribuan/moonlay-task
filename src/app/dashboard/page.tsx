@@ -16,6 +16,7 @@ export default function Dashboard() {
     const [currentUser, setCurrentUser] = useState<string | null>(null);
     const [tasks, setTasks] = useState<Task[]>(MOCK_TASKS);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
     const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
     const [defaultStatus, setDefaultStatus] = useState<TaskStatus>("todo");
 
@@ -30,6 +31,10 @@ export default function Dashboard() {
     }, [router]);
 
     const handleLogout = () => {
+        setIsLogoutModalOpen(true);
+    };
+
+    const confirmLogout = () => {
         localStorage.removeItem("moonlay_user");
         router.push("/login");
     };
@@ -129,6 +134,33 @@ export default function Dashboard() {
                     onSubmit={handleFormSubmit}
                     onCancel={() => setIsModalOpen(false)}
                 />
+            </Modal>
+
+            <Modal
+                isOpen={isLogoutModalOpen}
+                onClose={() => setIsLogoutModalOpen(false)}
+                title="Are you sure?"
+            >
+                <div className="p-6 text-center space-y-8">
+                    <p className="text-xl font-bold text-foreground">
+                        Do you really want to log out of Moonlay Task?
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <Button
+                            variant="outline"
+                            className="w-full h-14 text-lg"
+                            onClick={() => setIsLogoutModalOpen(false)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            className="w-full h-14 text-lg bg-secondary"
+                            onClick={confirmLogout}
+                        >
+                            Yes, Log Out
+                        </Button>
+                    </div>
+                </div>
             </Modal>
 
             {/* Background Shapes */}

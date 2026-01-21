@@ -50,11 +50,7 @@ export function LoginForm({ onLogin }: { onLogin: (username: string) => void }) 
                         Login Now <Lock className="ml-2" size={20} />
                     </Button>
 
-                    <div className="pt-4 text-center">
-                        <p className="text-sm font-bold opacity-60 italic">
-                            * Hint: Any username/password works for this demo.
-                        </p>
-                    </div>
+
                 </form>
             </CardContent>
         </Card>

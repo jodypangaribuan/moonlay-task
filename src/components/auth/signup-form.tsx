@@ -58,11 +58,7 @@ export function SignupForm({ onSignup }: { onSignup: (data: any) => void }) {
                         Sign Up Now <Zap className="ml-2" size={20} />
                     </Button>
 
-                    <div className="pt-4 text-center">
-                        <p className="text-sm font-bold opacity-60 italic">
-                            * It's free forever. No credit card required.
-                        </p>
-                    </div>
+
                 </form>
             </CardContent>
         </Card>

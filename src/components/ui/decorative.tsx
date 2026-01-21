@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-    variant?: "primary" | "secondary" | "tertiary" | "quaternary";
+    variant?: "primary" | "secondary" | "tertiary" | "quaternary" | "accent";
 }
 
 export function Badge({ className, variant = "primary", ...props }: BadgeProps) {
@@ -11,6 +11,7 @@ export function Badge({ className, variant = "primary", ...props }: BadgeProps) 
         secondary: "bg-secondary text-white",
         tertiary: "bg-tertiary text-foreground",
         quaternary: "bg-quaternary text-foreground",
+        accent: "bg-accent text-white",
     };
 
     return (

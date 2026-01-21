@@ -17,7 +17,7 @@ export function LoginForm({ onLogin }: { onLogin: (username: string) => void }) 
     };
 
     return (
-        <Card className="w-full max-w-md border-4 shadow-[12px_12px_0px_0px_#1E293B]">
+        <Card hoverEffect={false} className="w-full max-w-md border-4 shadow-[12px_12px_0px_0px_#1E293B]">
             <CardHeader className="text-center space-y-4">
                 <div className="mx-auto h-16 w-16 bg-accent border-2 border-foreground rounded-2xl flex items-center justify-center shadow-pop rotate-3">
                     <Zap className="text-white" size={32} />

@@ -1,25 +1,26 @@
 "use client";
 
-import { LoginForm } from "@/components/auth/login-form";
+import { SignupForm } from "@/components/auth/signup-form";
 import { FloatingShape } from "@/components/ui/decorative";
 import { useRouter } from "next/navigation";
 import { Zap } from "lucide-react";
 
-export default function Login() {
+export default function Signup() {
     const router = useRouter();
 
-    const handleLogin = (username: string) => {
-        localStorage.setItem("moonlay_user", username);
+    const handleSignup = (data: any) => {
+        // Simulate signup by saving username to localStorage
+        localStorage.setItem("moonlay_user", data.username);
         router.push("/dashboard");
     };
 
     return (
         <div className="relative min-h-screen overflow-hidden bg-background flex flex-col items-center justify-center p-6">
             <div className="fixed inset-0 dot-grid pointer-events-none" />
-            <FloatingShape type="circle" size="xl" color="tertiary" className="top-[-10%] left-[-5%]" />
-            <FloatingShape type="pill" size="lg" color="secondary" className="bottom-[10%] right-[10%] rotate-45" />
+            <FloatingShape type="circle" size="xl" color="accent" className="top-[-10%] right-[-5%]" />
+            <FloatingShape type="pill" size="lg" color="quaternary" className="bottom-[10%] left-[10%] -rotate-45" />
 
-            {/* Branded Logo for Login */}
+            {/* Branded Logo */}
             <div
                 className="mb-12 flex items-center gap-2 cursor-pointer"
                 onClick={() => router.push("/")}
@@ -30,10 +31,10 @@ export default function Login() {
                 <span className="text-3xl font-black font-heading tracking-tight italic uppercase">Moonlay Task</span>
             </div>
 
-            <LoginForm onLogin={handleLogin} />
+            <SignupForm onSignup={handleSignup} />
 
             <p className="mt-8 text-sm font-bold opacity-60">
-                Don't have an account? <span onClick={() => router.push("/signup")} className="text-secondary underline cursor-pointer">Sign up for free</span>
+                Already have an account? <span onClick={() => router.push("/login")} className="text-accent underline cursor-pointer">Log in instead</span>
             </p>
         </div>
     );

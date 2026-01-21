@@ -13,8 +13,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Playful Geometric | Next.js Design System",
-  description: "A vibrant, tactile, and energetic design system built with Next.js and Tailwind CSS.",
+  title: "Moonlay Task | Master Your Chaos",
+  description: "A vibrant, tactile, and energetic task management system built with Next.js and Tailwind CSS.",
 };
 
 export default function RootLayout({

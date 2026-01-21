@@ -60,7 +60,7 @@ export function AIChatbot() {
                                     <div className="h-8 w-8 bg-white rounded-full flex items-center justify-center text-accent">
                                         <Bot size={20} />
                                     </div>
-                                    <span className="font-black font-heading tracking-tight">GeoTask AI</span>
+                                    <span className="font-black font-heading tracking-tight">Moonlay AI</span>
                                 </div>
                                 <Sparkles size={18} className="animate-pulse" />
                             </div>
@@ -86,7 +86,7 @@ export function AIChatbot() {
                             <div className="p-4 border-t-2 border-foreground bg-white">
                                 <div className="flex gap-2">
                                     <Input
-                                        placeholder="Ask GeoAI..."
+                                        placeholder="Ask MoonlayAI..."
                                         value={input}
                                         onChange={e => setInput(e.target.value)}
                                         onKeyDown={e => e.key === 'Enter' && handleSend()}

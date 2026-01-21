@@ -24,16 +24,15 @@ export default function LandingPage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-foreground bg-accent shadow-pop">
               <Zap className="text-white" size={28} />
             </div>
-            <span className="text-3xl font-black font-heading tracking-tight italic">GEOTASK</span>
+            <span className="text-3xl font-black font-heading tracking-tight italic uppercase">Moonlay Task</span>
           </div>
           <div className="hidden lg:flex items-center gap-10 font-black uppercase tracking-wider text-sm">
             <a href="#features" className="hover:text-accent transition-colors">Features</a>
             <a href="#workflow" className="hover:text-accent transition-colors">Workflow</a>
-            <a href="#pricing" className="hover:text-accent transition-colors">Pricing</a>
           </div>
           <div className="flex items-center gap-4">
             <Button variant="outline" onClick={() => router.push("/login")} className="hidden sm:inline-flex">Log In</Button>
-            <Button onClick={() => router.push("/login")} className="px-8">Get Started</Button>
+            <Button onClick={() => router.push("/signup")} className="px-8">Get Started</Button>
           </div>
         </div>
       </nav>
@@ -66,7 +65,7 @@ export default function LandingPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6">
-            <Button size="lg" onClick={() => router.push("/login")} className="h-20 px-12 text-2xl font-black shadow-[8px_8px_0px_0px_#1E293B] hover:shadow-[12px_12px_0px_0px_#1E293B]">
+            <Button size="lg" onClick={() => router.push("/signup")} className="h-20 px-12 text-2xl font-black shadow-[8px_8px_0px_0px_#1E293B] hover:shadow-[12px_12px_0px_0px_#1E293B]">
               Start Managing Free <ArrowRight className="ml-3" size={28} />
             </Button>
             <Button variant="outline" size="lg" className="h-20 px-12 text-2xl font-black bg-white">
@@ -148,7 +147,7 @@ export default function LandingPage() {
             </div>
             <div className="text-left">
               <p className="font-black text-xl leading-none">Jody Developer</p>
-              <p className="font-bold text-muted-foreground">Founder, GeoPop Creative</p>
+              <p className="font-bold text-muted-foreground">Founder, Moonlay Creative</p>
             </div>
           </div>
         </section>
@@ -165,8 +164,8 @@ export default function LandingPage() {
                 Join 10,000+ geometric thinkers and start getting things done today.
               </p>
               <div className="flex flex-col sm:flex-row gap-6 w-full max-w-md">
-                <Button size="lg" onClick={() => router.push("/login")} className="h-20 w-full bg-tertiary text-foreground text-2xl font-black shadow-[8px_8px_0px_0px_#1E293B] hover:shadow-[12px_12px_0px_0px_#1E293B] border-white">
-                  Get GeoTask Now
+                <Button size="lg" onClick={() => router.push("/signup")} className="h-20 w-full bg-tertiary text-foreground text-2xl font-black shadow-[8px_8px_0px_0px_#1E293B] hover:shadow-[12px_12px_0px_0px_#1E293B] border-white">
+                  Get Moonlay Task Now
                 </Button>
               </div>
             </div>
@@ -183,7 +182,7 @@ export default function LandingPage() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-8">
               <Zap className="text-accent" size={32} />
-              <span className="text-3xl font-black font-heading italic">GEOTASK</span>
+              <span className="text-3xl font-black font-heading italic uppercase">Moonlay Task</span>
             </div>
             <p className="text-xl font-bold text-muted-foreground max-w-sm">
               The design-first task management system for expressive teams.
@@ -192,7 +191,6 @@ export default function LandingPage() {
           <div>
             <h4 className="font-black uppercase tracking-widest text-sm mb-8">Product</h4>
             <ul className="space-y-4 font-bold text-lg">
-              <li className="hover:text-accent cursor-pointer">Pricing</li>
               <li className="hover:text-accent cursor-pointer">Templates</li>
               <li className="hover:text-accent cursor-pointer">Releases</li>
             </ul>
@@ -206,7 +204,7 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="container mx-auto px-6 mt-24 pt-12 border-t-2 border-foreground flex justify-between items-center opacity-60 font-bold">
-          <p>© 2026 GeoPop Labs. All rights reserved.</p>
+          <p>© 2026 Moonlay Labs. All rights reserved.</p>
           <p>Privacy First. Design Always.</p>
         </div>
       </footer>

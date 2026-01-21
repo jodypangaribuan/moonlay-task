@@ -21,7 +21,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         // Basic session simulation
-        const user = localStorage.getItem("geotask_user");
+        const user = localStorage.getItem("moonlay_user");
         if (!user) {
             router.push("/login");
         } else {
@@ -30,7 +30,7 @@ export default function Dashboard() {
     }, [router]);
 
     const handleLogout = () => {
-        localStorage.removeItem("geotask_user");
+        localStorage.removeItem("moonlay_user");
         router.push("/login");
     };
 
@@ -75,7 +75,7 @@ export default function Dashboard() {
                         <div className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-foreground bg-accent shadow-pop">
                             <Zap className="text-white" size={24} />
                         </div>
-                        <span className="text-2xl font-black font-heading tracking-tight italic">GEOTASK</span>
+                        <span className="text-2xl font-black font-heading tracking-tight italic uppercase">Moonlay Task</span>
                     </div>
 
                     <div className="flex items-center gap-6">
